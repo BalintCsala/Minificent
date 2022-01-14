@@ -52,12 +52,11 @@ void main() {
                 -1,
                 1
             );
-            //gl_Position = ProjMat * ModelViewMat * (pos + vec4(0, 0.2, 0, 0));
             vertexColor = vec4(floor(Position.xz) / 16, textureColor.a, 1);
         } else {
             // Data face used for chunk offset storage
             gl_Position = vec4(
-                OFFSETS[imod(gl_VertexID, 4)] * vec2(3, 1) / ScreenSize * 2.0 - 1.0,
+                OFFSETS[imod(gl_VertexID, 4)] * vec2(50, 1) / ScreenSize * 2.0 - 1.0,
                 -1,
                 1
             );

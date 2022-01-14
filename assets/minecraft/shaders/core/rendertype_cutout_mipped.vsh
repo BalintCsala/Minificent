@@ -56,7 +56,7 @@ void main() {
         } else {
             // Data face used for chunk offset storage
             gl_Position = vec4(
-                OFFSETS[imod(gl_VertexID, 4)] * vec2(3, 1) / ScreenSize * 2.0 - 1.0,
+                OFFSETS[imod(gl_VertexID, 4)] * vec2(29, 1) / ScreenSize * 2.0 - 1.0,
                 -1,
                 1
             );

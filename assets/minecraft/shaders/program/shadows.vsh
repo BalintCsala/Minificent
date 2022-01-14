@@ -45,14 +45,14 @@ void main() {
     vec2 inc = vec2(2.0 / OutSize.x, 0.0);
 
     // ProjMat constructed assuming no translation or rotation matrices applied (aka no view bobbing).
-    projMat = mat4(tan(decodeFloat(texture(DataSampler, start + 3.0 * inc).xyz)), decodeFloat(texture(DataSampler, start + 6.0 * inc).xyz), 0.0, 0.0,
-            decodeFloat(texture(DataSampler, start + 5.0 * inc).xyz), tan(decodeFloat(texture(DataSampler, start + 4.0 * inc).xyz)), decodeFloat(texture(DataSampler, start + 7.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 8.0 * inc).xyz),
-            decodeFloat(texture(DataSampler, start + 9.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 10.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 11.0 * inc).xyz),  decodeFloat(texture(DataSampler, start + 12.0 * inc).xyz),
-            decodeFloat(texture(DataSampler, start + 13.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 14.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 15.0 * inc).xyz), 0.0);
+    projMat = mat4(tan(decodeFloat(texelFetch(DataSampler, ivec2(3, 0), 0).xyz)), decodeFloat(texelFetch(DataSampler, ivec2(6, 0), 0).xyz), 0.0, 0.0,
+            decodeFloat(texelFetch(DataSampler, ivec2(5, 0), 0).xyz), tan(decodeFloat(texelFetch(DataSampler, ivec2(4, 0), 0).xyz)), decodeFloat(texelFetch(DataSampler, ivec2(7, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(8, 0), 0).xyz),
+            decodeFloat(texelFetch(DataSampler, ivec2(9, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(10, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(11, 0), 0).xyz),  decodeFloat(texelFetch(DataSampler, ivec2(12, 0), 0).xyz),
+            decodeFloat(texelFetch(DataSampler, ivec2(13, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(14, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(15, 0), 0).xyz), 0.0);
 
-    modelViewMat = mat4(decodeFloat(texture(DataSampler, start + 16.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 17.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 18.0 * inc).xyz), 0.0,
-            decodeFloat(texture(DataSampler, start + 19.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 20.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 21.0 * inc).xyz), 0.0,
-            decodeFloat(texture(DataSampler, start + 22.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 23.0 * inc).xyz), decodeFloat(texture(DataSampler, start + 24.0 * inc).xyz), 0.0,
+    modelViewMat = mat4(decodeFloat(texelFetch(DataSampler, ivec2(16, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(17, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(18, 0), 0).xyz), 0.0,
+            decodeFloat(texelFetch(DataSampler, ivec2(19, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(20, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(21, 0), 0).xyz), 0.0,
+            decodeFloat(texelFetch(DataSampler, ivec2(22, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(23, 0), 0).xyz), decodeFloat(texelFetch(DataSampler, ivec2(24, 0), 0).xyz), 0.0,
             0.0, 0.0, 0.0, 1.0);
 
     near = PROJNEAR;
