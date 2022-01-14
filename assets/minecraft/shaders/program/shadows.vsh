@@ -19,7 +19,7 @@ out vec3 chunkOffset;
 out vec3 rayDir;
 out float near;
 out float far;
-out mat4 projInv;
+out mat4 mvpInv;
 
 int decodeInt(vec3 ivec) {
     ivec *= 255.0;
@@ -72,6 +72,5 @@ void main() {
 
     sunDir = normalize(sunDir + vec3(0, 0, 0.5));
 
-    projInv = inverse(projMat * modelViewMat);
-    rayDir = (projInv * vec4(outPos.xy * (far - near), far + near, far - near)).xyz;
+    mvpInv = inverse(projMat * modelViewMat);
 }
