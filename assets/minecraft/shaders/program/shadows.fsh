@@ -3,6 +3,7 @@
 const float EPSILON = 0.001;
 const bool SMOOTH_LIGHTING = true;
 const bool BETTER_AO = true;
+const float NORMAL_CALCULATION = 1.0;
 
 in vec2 texCoord;
 in vec3 sunDir;
@@ -45,7 +46,7 @@ ivec2 positionToPixel(ivec3 cell) {
     return result;
 }
 
-vec3 depthToPlayer(float depth) {
+vec3 depthToPlayer(vec2 texCoord, float depth) {
     vec4 ndc = vec4(texCoord, depth, 1) * 2 - 1;
     vec4 playerPos = mvpInv * ndc;
     return playerPos.xyz / playerPos.w;
@@ -66,11 +67,42 @@ void main() {
     fragColor = texture(DiffuseSampler, texCoord);
 
     float depth = texture(DiffuseDepthSampler, texCoord).r;
-    vec3 playerPos = depthToPlayer(depth); 
-    vec3 normal = normalize(cross(
-        dFdx(playerPos),
-        dFdy(playerPos)
-    ));
+    vec3 playerPos = depthToPlayer(texCoord, depth); 
+    vec3 normal;
+    
+    if (NORMAL_CALCULATION > 0.5) {
+        ivec2 uv = ivec2(texCoord * OutSize);
+        float depthDown = texelFetch(DiffuseDepthSampler, uv + ivec2(0, -1), 0).r;
+        float depthUp = texelFetch(DiffuseDepthSampler, uv + ivec2(0, 1), 0).r;
+        float depthLeft = texelFetch(DiffuseDepthSampler, uv + ivec2(-1, 0), 0).r;
+        float depthRight = texelFetch(DiffuseDepthSampler, uv + ivec2(1, 0), 0).r;
+
+        vec2 texelSize = 1.0 / OutSize;
+        vec3 normalPosX1, normalPosX2, normalPosY1, normalPosY2;
+        if (abs(depthLeft - depth) < abs(depthRight - depth)) {
+            normalPosX1 = depthToPlayer(texCoord + vec2(-1, 0) * texelSize, depthLeft);
+            normalPosX2 = depthToPlayer(texCoord, depth);
+        } else {
+            normalPosX1 = depthToPlayer(texCoord, depth);
+            normalPosX2 = depthToPlayer(texCoord + vec2(1, 0) * texelSize, depthRight);
+        }
+        if (abs(depthDown - depth) < abs(depthUp - depth)) {
+            normalPosY1 = depthToPlayer(texCoord + vec2(0, -1) * texelSize, depthDown);
+            normalPosY2 = depthToPlayer(texCoord, depth);
+        } else {
+            normalPosY1 = depthToPlayer(texCoord, depth);
+            normalPosY2 = depthToPlayer(texCoord + vec2(0, 1) * texelSize, depthUp);
+        }
+        normal = normalize(cross(
+            normalPosX2 - normalPosX1,
+            normalPosY2 - normalPosY1
+        ));
+    } else {
+        normal = normalize(cross(
+            dFdx(playerPos),
+            dFdy(playerPos)
+        ));
+    }
 
     vec3 samplePos = playerPos + normal * 0.01 - fract(chunkOffset);
     samplePos = mix(samplePos, floor(samplePos) + 0.5, abs(normal));
@@ -114,51 +146,62 @@ void main() {
         int area = iScreenSize.x * iScreenSize.y / 2;
         ivec3 sides = ivec3(int(pow(float(area), 1.0 / 3.0)));
         if (all(lessThan(abs(cell), sides / 2 - 1))) {
-            float bottom = float(isSolid(cell + ivec3(0, -1, 0)));
-            float top = float(isSolid(cell + ivec3(0, 1, 0)));
-            float left = float(isSolid(cell + ivec3(-1, 0, 0)));
-            float right = float(isSolid(cell + ivec3(1, 0, 0)));
-            float back = float(isSolid(cell + ivec3(0, 0, -1)));
-            float forward = float(isSolid(cell + ivec3(0, 0, 1)));
+            const ivec3[] OFFSETS = ivec3[](
+                // X dir
+                ivec3(0, -1, 0),
+                ivec3(0, 0, -1),
+                ivec3(0, -1, -1),
+                ivec3(0, 0, 1),
+                ivec3(0, -1, 1),
+                ivec3(0, 1, 0),
+                ivec3(0, 1, -1),
+                ivec3(0, 1, 1),
+                // Y dir
+                ivec3(0, 0, -1),
+                ivec3(-1, 0, 0),
+                ivec3(-1, 0, -1),
+                ivec3(1, 0, 0),
+                ivec3(1, 0, -1),
+                ivec3(0, 0, 1),
+                ivec3(-1, 0, 1),
+                ivec3(1, 0, 1),
+                // Z dir
+                ivec3(0, -1, 0),
+                ivec3(-1, 0, 0),
+                ivec3(-1, -1, 0),
+                ivec3(1, 0, 0),
+                ivec3(1, -1, 0),
+                ivec3(0, 1, 0),
+                ivec3(-1, 1, 0),
+                ivec3(1, 1, 0)
+            );
 
-            float bottomLeft = float(isSolid(cell + ivec3(-1, -1, 0)));
-            float bottomRight = float(isSolid(cell + ivec3(1, -1, 0)));
-            float bottomBack = float(isSolid(cell + ivec3(0, -1, -1)));
-            float bottomForward = float(isSolid(cell + ivec3(0, -1, 1)));
-            float topLeft = float(isSolid(cell + ivec3(-1, 1, 0)));
-            float topRight = float(isSolid(cell + ivec3(1, 1, 0)));
-            float topBack = float(isSolid(cell + ivec3(0, 1, -1)));
-            float topForward = float(isSolid(cell + ivec3(0, 1, 1)));
-
-            float leftBack = float(isSolid(cell + ivec3(-1, 0, -1)));
-            float leftForward = float(isSolid(cell + ivec3(-1, 0, 1)));
-            float rightBack = float(isSolid(cell + ivec3(1, 0, -1)));
-            float rightForward = float(isSolid(cell + ivec3(1, 0, 1)));
-
-            float bottomLeftLight = 1.0; 
-            float bottomRightLight = 1.0;
-            float topLeftLight = 1.0;
-            float topRightLight = 1.0;
             vec2 facePosition = vec2(0);
+            int index = 0;
             if (abs(normal.x) > 0.2) {
-                bottomLeftLight =    1.0 - (bottom + back + bottomBack) / 3.0;
-                bottomRightLight =   1.0 - (bottom + forward + bottomForward) / 3.0;
-                topLeftLight =       1.0 - (top + back + topBack) / 3.0;
-                topRightLight =      1.0 - (top + forward + topForward) / 3.0;
                 facePosition = samplePos.zy;
+                index = 0;
             } else if (abs(normal.y) > 0.2) {
-                bottomLeftLight =    1.0 - (left + back + leftBack) / 3.0;
-                bottomRightLight =   1.0 - (right + back + rightBack) / 3.0;
-                topLeftLight =       1.0 - (left + forward + leftForward) / 3.0;
-                topRightLight =      1.0 - (right + forward + rightForward) / 3.0;
                 facePosition = samplePos.xz;
+                index = 8;
             } else if (abs(normal.z) > 0.2) {
-                bottomLeftLight =    1.0 - (bottom + left + bottomLeft) / 3.0;
-                bottomRightLight =   1.0 - (bottom + right + bottomRight) / 3.0;
-                topLeftLight =       1.0 - (top + left + topLeft) / 3.0;
-                topRightLight =      1.0 - (top + right + topRight) / 3.0;
                 facePosition = samplePos.xy;
+                index = 16;
             }
+
+            float pos1 = float(isSolid(cell + OFFSETS[index + 0]));
+            float pos2 = float(isSolid(cell + OFFSETS[index + 1]));
+            float pos3 = float(isSolid(cell + OFFSETS[index + 2]));
+            float pos4 = float(isSolid(cell + OFFSETS[index + 3]));
+            float pos5 = float(isSolid(cell + OFFSETS[index + 4]));
+            float pos6 = float(isSolid(cell + OFFSETS[index + 5]));
+            float pos7 = float(isSolid(cell + OFFSETS[index + 6]));
+            float pos8 = float(isSolid(cell + OFFSETS[index + 7]));
+            
+            float bottomLeftLight =  1.0 - (pos1 + pos2 + pos3) / 3.0;
+            float bottomRightLight = 1.0 - (pos1 + pos4 + pos5) / 3.0;
+            float topLeftLight =     1.0 - (pos6 + pos2 + pos7) / 3.0;
+            float topRightLight =    1.0 - (pos6 + pos4 + pos8) / 3.0;
             vec2 fractPos = fract(facePosition);
             float ao = mix(
                 mix(bottomLeftLight, bottomRightLight, fractPos.x),
