@@ -20,6 +20,8 @@ out vec3 rayDir;
 out float near;
 out float far;
 out mat4 mvpInv;
+out float fogStart;
+out float fogEnd;
 
 int decodeInt(vec3 ivec) {
     ivec *= 255.0;
@@ -73,4 +75,7 @@ void main() {
     sunDir = normalize(sunDir + vec3(0, 0, 0.5));
 
     mvpInv = inverse(projMat * modelViewMat);
+
+    fogEnd = decodeFloat(texelFetch(DataSampler, ivec2(27, 0), 0).rgb) * 1000.0;
+    fogStart = decodeFloat(texelFetch(DataSampler, ivec2(26, 0), 0).rgb) * 1000.0;
 }

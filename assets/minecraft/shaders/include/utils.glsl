@@ -50,29 +50,6 @@ int inControl(vec2 screenCoord, float screenWidth) {
     return -1;
 }
 
-// discards the current pixel if it is control
-void discardControl(vec2 screenCoord, float screenWidth) {
-    if (screenCoord.y < 1.0) {
-        float index = floor(screenWidth / 2.0) + THRESH / 2.0;
-        index = (screenCoord.x - index) / 2.0;
-        if (fract(index) < THRESH && index < NUMCONTROLS && index >= 0) {
-            discard;
-        }
-    }
-}
-
-// discard but for when ScreenSize is not given
-void discardControlGLPos(vec2 screenCoord, vec4 glpos) {
-    if (screenCoord.y < 1.0) {
-        float screenWidth = round(screenCoord.x * 2.0 / (glpos.x / glpos.w + 1.0));
-        float index = floor(screenWidth / 2.0) + THRESH / 2.0;
-        index = (screenCoord.x - index) / 2.0;
-        if (fract(index) < THRESH && index < NUMCONTROLS && index >= 0) {
-            discard;
-        }
-    }
-}
-
 // get screen coordinates of a particular control index
 vec2 getControl(int index, vec2 screenSize) {
     return vec2(floor(screenSize.x / 2.0) + float(index) * 2.0 + 0.5, 0.5) / screenSize;

@@ -13,6 +13,8 @@ in vec3 chunkOffset;
 in float near;
 in float far;
 in mat4 mvpInv;
+in float fogStart;
+in float fogEnd;
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
@@ -63,11 +65,29 @@ bool isSolid(ivec3 cell) {
     return type == 0;
 }
 
+float cylindricalDistance(vec3 playerPos) {
+    float distXZ = length(playerPos.xz);
+    float distY = playerPos.y;
+    return max(distXZ, distY);
+}
+
+float linearFogFade(float vertexDistance) {
+    if (vertexDistance <= fogStart) {
+        return 1.0;
+    } else if (vertexDistance >= fogEnd) {
+        return 0.0;
+    }
+
+    return smoothstep(fogEnd, fogStart, vertexDistance);
+}
+
 void main() {
     fragColor = texture(DiffuseSampler, texCoord);
 
     float depth = texture(DiffuseDepthSampler, texCoord).r;
-    vec3 playerPos = depthToPlayer(texCoord, depth); 
+    vec3 playerPos = depthToPlayer(texCoord, depth);
+    float cylDist = cylindricalDistance(playerPos);
+    float fadeAmount = linearFogFade(cylDist);
     vec3 normal;
     
     if (NORMAL_CALCULATION > 0.5) {
@@ -137,7 +157,7 @@ void main() {
         ivec2 pixel = positionToPixel(cell);
         lighting = texelFetch(LightmapSampler, pixel, 0);
     }
-    fragColor.rgb += mix(vec3(0), lighting.rgb, lighting.a) / 1.5;
+    fragColor.rgb += mix(vec3(0), lighting.rgb, lighting.a) / 1.5 * fadeAmount;
 
     if (BETTER_AO) {
         ivec3 cell = ivec3(floor(samplePos));
@@ -208,7 +228,8 @@ void main() {
                 mix(topLeftLight, topRightLight, fractPos.x),
                 fractPos.y
             );
-            fragColor.rgb *= max(dot(normal, normalize(vec3(1, 3, 2))), 0.0) * 1.25 * ao * 0.6 + 0.4;
+            float lightingMult = max(dot(normal, normalize(vec3(1, 3, 2))), 0.0) * 1.25 * ao * 0.6 + 0.4;
+            fragColor.rgb *= mix(1.0, lightingMult, fadeAmount);
         }
     }
     

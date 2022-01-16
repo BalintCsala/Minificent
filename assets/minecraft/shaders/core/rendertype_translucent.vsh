@@ -2,6 +2,7 @@
 
 #moj_import <light.glsl>
 #moj_import <voxelization.glsl>
+#moj_import <fog.glsl>
 
 in vec3 Position;
 in vec4 Color;
@@ -22,7 +23,6 @@ out vec4 vertexColor;
 out vec2 texCoord0;
 out vec4 normal;
 out float dataFace;
-out vec4 glpos;
 out float blockLight;
 
 const vec2[] OFFSETS = vec2[](
@@ -67,11 +67,10 @@ void main() {
         dataFace = 0.0;
         gl_Position = ProjMat * ModelViewMat * pos;
 
-        vertexDistance = length((ModelViewMat * vec4(Position + ChunkOffset, 1.0)).xyz);
+        vertexDistance = cylindrical_distance(ModelViewMat, pos.xyz);
         vertexColor = Color * minecraft_sample_lightmap(Sampler2, ivec2(0, UV2.y));
         texCoord0 = UV0;
         normal = ProjMat * ModelViewMat * vec4(Normal, 0.0);
     }
     blockLight = UV2.x;
-    glpos = gl_Position;
 }

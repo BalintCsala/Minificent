@@ -524,7 +524,7 @@
         },
         {
             "name": "blit",
-            "intarget": "final_foggy",
+            "intarget": "final",
             "outtarget": "minecraft:main"
         }
     ]
