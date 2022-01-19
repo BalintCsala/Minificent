@@ -1,0 +1,45 @@
+{
+    "url": "https://github.com/BalintCsala/Minificent",
+    "name": "Minificent",
+    "creator": "Bálint",
+    "creatorLink": "https://github.com/BalintCsala",
+    "description": "Adds colored lights to the game. They interact with stained glass.",
+    "longDescription": "Makes most light sources emit a colored light, e.g. soul torches and soul fire will emit blue light, torches will be yellow, fires orange, etc. This light will also interact with stained glass, which will somewhat realistically filter it (white light going through red stained glass will turn red).\\n\\nLight emitted by objects not yet accounted for by the shader will act as it does in vanilla. The light values won't much up with the vanilla light levels if it's affected by stained glass, so don't use the shader when mob-proofing areas.",
+    "thumbnail": "https://github.com/BalintCsala/Minificent/raw/main/pack.png",
+    "settings": [
+        {
+            "type": "uniform",
+            "name": "ScreenSize",
+            "displayName": "Screen size",
+            "format": "vec2",
+            "defaultValue": [1920, 1080],
+            "min": [640, 480],
+            "description": "The size of the screen you want to be playing at. Check this using the F3 screen, it should say something like \"Display: <width> x <height>\". Write these values below."
+        },
+        {
+            "type": "constant",
+            "name": "SMOOTH_LIGHTING",
+            "displayName": "Smooth lighting",
+            "format": "bool",
+            "defaultValue": true,
+            "description": "Enables smooth lighting, akin to the similarly named option in the vanilla light system. Affects performance quite a bit, if you have trouble running the shader at acceptable framerates, try turning this off."
+        },
+        {
+            "type": "constant",
+            "name": "BETTER_AO",
+            "displayName": "Better ambient occlusion",
+            "format": "bool",
+            "defaultValue": true,
+            "description": "Replaces default ambient occlusion (corners getting darker when they are covered from the sides) with a better version. Affects performance quite a bit."
+        },
+        {
+            "type": "constant",
+            "name": "NORMAL_CALCULATION",
+            "displayName": "Normal calculation",
+            "format": "enum",
+            "enumValues": [{"name": "Fast", "value": 0}, {"name": "Fancy", "value": 1}],
+            "defaultValue": 1,
+            "description": "Defines how normals are calculated. Fast mode is considerably faster but it can introduce artifacts at the edges of blocks"
+        }
+    ]
+},

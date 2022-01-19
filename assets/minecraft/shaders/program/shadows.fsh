@@ -232,5 +232,4 @@ void main() {
             fragColor.rgb *= mix(1.0, lightingMult, fadeAmount);
         }
     }
-    
 }
