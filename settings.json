@@ -42,4 +42,4 @@
             "description": "Defines how normals are calculated. Fast mode is considerably faster but it can introduce artifacts at the edges of blocks"
         }
     ]
-},
+}
