@@ -4,7 +4,7 @@
     "creator": "Bálint",
     "creatorLink": "https://github.com/BalintCsala",
     "description": "Adds colored lights to the game. They interact with stained glass.",
-    "longDescription": "Makes most light sources emit a colored light, e.g. soul torches and soul fire will emit blue light, torches will be yellow, fires orange, etc. This light will also interact with stained glass, which will somewhat realistically filter it (white light going through red stained glass will turn red).\\n\\nLight emitted by objects not yet accounted for by the shader will act as it does in vanilla. The light values won't much up with the vanilla light levels if it's affected by stained glass, so don't use the shader when mob-proofing areas.",
+    "longDescription": "Makes most light sources emit a colored light, e.g. soul torches and soul fire will emit blue light, torches will be yellow, fires orange, etc. This light will also interact with stained glass, which will somewhat realistically filter it (white light going through red stained glass will turn red).\\n\\nLight emitted by objects not yet accounted for by the shader will act as it does in vanilla. The light values won't match up with the vanilla light levels if it's affected by stained glass, so don't use the shader when mob-proofing areas.",
     "thumbnail": "https://github.com/BalintCsala/Minificent/raw/main/pack.png",
     "settings": [
         {
