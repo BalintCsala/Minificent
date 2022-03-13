@@ -2,7 +2,7 @@ int imod(int val, int modulo) {
     return val - val / modulo * modulo;
 }
 
-ivec2 positionToPixel(vec3 position, vec2 ScreenSize, out bool inside, int discardModulo) {
+ivec2 positionToPixel(vec3 position, vec2 ScreenSize, out bool inside) {
     inside = true;
     ivec2 iScreenSize = ivec2(ScreenSize) - ivec2(0, 1);
     ivec3 iPosition = ivec3(floor(position));

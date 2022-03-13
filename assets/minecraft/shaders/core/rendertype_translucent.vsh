@@ -42,7 +42,7 @@ void main() {
             dataFace = 1.0;
             bool inside;
             // TODO: Add gametime
-            ivec2 pixel = positionToPixel(floor(Position + floor(ChunkOffset)), ScreenSize, inside, 0);
+            ivec2 pixel = positionToPixel(floor(Position + floor(ChunkOffset)), ScreenSize, inside);
             if (!inside) {
                 gl_Position = vec4(5, 5, 0, 1);
                 return;

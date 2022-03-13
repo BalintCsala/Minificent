@@ -9,11 +9,9 @@ in vec2 texCoord;
 out vec4 fragColor;
 
 void main() {
-    // TODO: Add gametime
-    int discardModulo = 1;
     int modulo = int(mod(gl_FragCoord.x + gl_FragCoord.y, 2.0));
 
-    if (modulo == discardModulo) {
+    if (modulo == 1) {
         ivec2 fragCoord = ivec2(gl_FragCoord.xy);
 
         float centerDepth = texelFetch(DiffuseDepthSampler, fragCoord, 0).r;
@@ -32,7 +30,6 @@ void main() {
         float avgDepth = dot(depths, vec4(1)) / 4.0;
         vec4 weights = 1.0 - pow(depths - avgDepth, vec4(2.0));
         weights /= dot(weights, vec4(1));
-
 
         gl_FragDepth = dot(weights, depths);
 
