@@ -1,0 +1,1 @@
+{"parent":"minecraft:block/cube_all","textures":{"all":"minecraft:block/crying_obsidian","marker":"minecraft:block/marker_crying_obsidian"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}

@@ -11,10 +11,34 @@ uniform sampler2D ColorSampler;
 
 out vec4 fragColor;
 
+const vec3 SOUL_LIGHT =              vec3(0.03, 0.40, 0.90);
+const vec3 FIRE_LIGHT =              vec3(1.00, 0.58, 0.00);
+const vec3 NETHER_PORTAL_LIGHT =     vec3(0.42, 0.00, 0.75);
+const vec3 ARTIFICAL_LIGHT =         vec3(0.79, 0.92, 1.00);
+const vec3 BLACKLIGHT_LIGHT =        vec3(0.13, 0.00, 0.31);
+const vec3 UNDERWATER_LIGHT =        vec3(0.72, 1.00, 0.65);
+const vec3 BRIGHT_LIGHT =            vec3(1.00, 0.95, 0.30);
+const vec3 REDSTONE_LIGHT =          vec3(1.00, 0.20, 0.15);
+const vec3 SUBTLE_LIGHT =            vec3(0.29, 0.25, 0.00);
+const vec3 CANDLE_LIGHT =            vec3(0.68, 0.59, 0.14);
+const vec3 END_LIGHT =               vec3(0.89, 0.45, 1.00);
+const vec3 DARK_BLUE_LIGHT =         vec3(0.00, 0.00, 0.40);
+const vec3 AMETHYST_LIGHT =          vec3(0.23, 0.00, 0.30);
+
 const vec3 COLORS[] = vec3[](
-    vec3(1, 0, 0), // Glowstone
-    vec3(0, 1, 0), // Sea lantern
-    vec3(0, 0, 1)  // Redstone lamp on
+    SOUL_LIGHT,
+    FIRE_LIGHT,
+    NETHER_PORTAL_LIGHT,
+    ARTIFICAL_LIGHT,
+    BLACKLIGHT_LIGHT,
+    UNDERWATER_LIGHT,
+    BRIGHT_LIGHT,
+    REDSTONE_LIGHT,
+    SUBTLE_LIGHT,
+    CANDLE_LIGHT,
+    END_LIGHT,
+    DARK_BLUE_LIGHT,
+    AMETHYST_LIGHT
 );
 
 ivec2 positionToPixel(ivec3 position) {
@@ -66,11 +90,10 @@ void main() {
             return;
         } else if (type == 1) {
             // Translucent
-            multiplier = texelFetch(ColorSampler, ivec2(id & 31, 1), 0).rgb;
+            multiplier = texelFetch(ColorSampler, ivec2(id & 31, 0), 0).rgb;
         } else if (type == 2) {
             // Emissive
-            base = texelFetch(ColorSampler, ivec2(id & 31, 0), 0) - 1.0 / 15.0;
-            base.a = 1.0;
+            base = vec4(COLORS[id & 31], 1.0);
         }
     }
 

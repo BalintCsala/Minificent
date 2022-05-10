@@ -21,7 +21,6 @@ uniform sampler2D DiffuseDepthSampler;
 uniform sampler2D DataSampler;
 uniform sampler2D DataDepthSampler;
 uniform sampler2D LightmapSampler;
-uniform sampler2D ColorSampler;
 
 uniform vec2 OutSize;
 

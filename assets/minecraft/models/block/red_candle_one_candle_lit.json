@@ -1,0 +1,1 @@
+{"parent":"minecraft:block/template_candle","textures":{"all":"minecraft:block/red_candle_lit","particle":"minecraft:block/red_candle_lit","marker":"minecraft:block/marker_one_candle"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}

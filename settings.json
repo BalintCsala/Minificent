@@ -40,6 +40,110 @@
             "enumValues": [{"name": "Fast", "value": 0}, {"name": "Fancy", "value": 1}],
             "defaultValue": 1,
             "description": "Defines how normals are calculated. Fast mode is considerably faster but it can introduce artifacts at the edges of blocks"
+        },
+        {
+            "type": "constant",
+            "name": "SOUL_LIGHT",
+            "displayName": "Soul Light",
+            "format": "color",
+            "defaultValue": [0.03, 0.40, 0.90],
+            "description": "The light emitted from soul fire (including torch)"
+        },
+        {
+            "type": "constant",
+            "name": "FIRE_LIGHT",
+            "displayName": "Fire Light",
+            "format": "color",
+            "defaultValue": [1.00, 0.58, 0.00],
+            "description": "The light emitted from object with fire (torch, campfire, furnace, etc.)"
+        },
+        {
+            "type": "constant",
+            "name": "NETHER_PORTAL_LIGHT",
+            "displayName": "Nether Light",
+            "format": "color",
+            "defaultValue": [0.42, 0.00, 0.75],
+            "description": "The light emitted from objects connected to the nether somehow"
+        },
+        {
+            "type": "constant",
+            "name": "ARTIFICAL_LIGHT",
+            "displayName": "Artificial Light",
+            "format": "color",
+            "defaultValue": [0.79, 0.92, 1.00],
+            "description": "The light emitted from artificial light sources (e.g. sea lanterns)"
+        },
+        {
+            "type": "constant",
+            "name": "BLACKLIGHT_LIGHT",
+            "displayName": "Black light",
+            "format": "color",
+            "defaultValue": [0.13, 0.00, 0.31],
+            "description": "The light emitted by the dragon egg"
+        },
+        {
+            "type": "constant",
+            "name": "UNDERWATER_LIGHT",
+            "displayName": "Underwater Light",
+            "format": "color",
+            "defaultValue": [0.72, 1.00, 0.65],
+            "description": "The light emitted by pickles"
+        },
+        {
+            "type": "constant",
+            "name": "BRIGHT_LIGHT",
+            "displayName": "Bright Light",
+            "format": "color",
+            "defaultValue": [1.00, 0.95, 0.30],
+            "description": "The light emitted by very bright light sources (redstone lamps, glowstone, etc.)"
+        },
+        {
+            "type": "constant",
+            "name": "REDSTONE_LIGHT",
+            "displayName": "Redstone Light",
+            "format": "color",
+            "defaultValue": [1.00, 0.20, 0.15],
+            "description": "The color emitted by active redstone components"
+        },
+        {
+            "type": "constant",
+            "name": "SUBTLE_LIGHT",
+            "displayName": "Subtle Light",
+            "format": "color",
+            "defaultValue": [0.29, 0.25, 0.00],
+            "description": "The light emitted by very dim light sources (lichen, berry bushes, etc.)"
+        },
+        {
+            "type": "constant",
+            "name": "CANDLE_LIGHT",
+            "displayName": "Candle Light",
+            "format": "color",
+            "defaultValue": [0.68, 0.59, 0.14],
+            "description": "The light emitted by candles"
+        },
+        {
+            "type": "constant",
+            "name": "END_LIGHT",
+            "displayName": "End Light",
+            "format": "color",
+            "defaultValue": [0.89, 0.45, 1.00],
+            "description": "The light emitted by objects connected to the end in some way (e.g end rods)"
+        },
+        {
+            "type": "constant",
+            "name": "DARK_BLUE_LIGHT",
+            "displayName": "Dark Blue Light",
+            "format": "color",
+            "defaultValue": [0.00, 0.00, 0.40],
+            "description": "The light emitted by crying obsidian blocks"
+        },
+        {
+            "type": "constant",
+            "name": "AMETHYST_LIGHT",
+            "displayName": "Amethyst Light",
+            "format": "color",
+            "defaultValue": [0.23, 0.00, 0.30],
+            "description": "The light emitted from amethysts"
         }
     ]
 }
