@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/cube_all","textures":{"all":"minecraft:block/sea_lantern","marker":"minecraft:block/marker_sea_lantern"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}
+{"parent":"minecraft:block/cube_all","textures":{"all":"minecraft:block/sea_lantern","marker":"minecraft:block/marker_sea_lantern"}}

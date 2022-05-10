@@ -70,7 +70,7 @@
             "name": "ARTIFICAL_LIGHT",
             "displayName": "Artificial Light",
             "format": "color",
-            "defaultValue": [0.79, 0.92, 1.00],
+            "defaultValue": [0.50, 0.70, 0.90],
             "description": "The light emitted from artificial light sources (e.g. sea lanterns)"
         },
         {
@@ -112,14 +112,6 @@
             "format": "color",
             "defaultValue": [0.29, 0.25, 0.00],
             "description": "The light emitted by very dim light sources (lichen, berry bushes, etc.)"
-        },
-        {
-            "type": "constant",
-            "name": "CANDLE_LIGHT",
-            "displayName": "Candle Light",
-            "format": "color",
-            "defaultValue": [0.68, 0.59, 0.14],
-            "description": "The light emitted by candles"
         },
         {
             "type": "constant",

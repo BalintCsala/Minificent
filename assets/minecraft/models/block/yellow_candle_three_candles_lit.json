@@ -1,1 +1,0 @@
-{"parent":"minecraft:block/template_three_candles","textures":{"all":"minecraft:block/yellow_candle_lit","particle":"minecraft:block/yellow_candle_lit","marker":"minecraft:block/marker_three_candles"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}

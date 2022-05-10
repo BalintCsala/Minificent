@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/template_torch_wall","textures":{"torch":"minecraft:block/torch","marker":"minecraft:block/marker_torch"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}
+{"parent":"minecraft:block/template_torch_wall","textures":{"torch":"minecraft:block/torch","marker":"minecraft:block/marker_torch"}}

@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/orientable","textures":{"top":"minecraft:block/blast_furnace_top","front":"minecraft:block/blast_furnace_front_on","side":"minecraft:block/blast_furnace_side","marker":"minecraft:block/marker_furnace"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}
+{"parent":"minecraft:block/orientable","textures":{"top":"minecraft:block/blast_furnace_top","front":"minecraft:block/blast_furnace_front_on","side":"minecraft:block/blast_furnace_side","marker":"minecraft:block/marker_furnace"}}

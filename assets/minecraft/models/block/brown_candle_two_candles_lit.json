@@ -1,1 +1,0 @@
-{"parent":"minecraft:block/template_two_candles","textures":{"all":"minecraft:block/brown_candle_lit","particle":"minecraft:block/brown_candle_lit","marker":"minecraft:block/marker_two_candles"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}

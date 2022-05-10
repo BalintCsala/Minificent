@@ -1,1 +1,1 @@
-{"parent":"minecraft:block/template_campfire","textures":{"fire":"minecraft:block/campfire_fire","lit_log":"minecraft:block/campfire_log_lit","marker":"minecraft:block/marker_campfire"},"elements":[{"from":[1,1,1],"to":[15,15,15],"faces":{"up":{"texture":"#marker"},"down":{"texture":"#marker"}}}]}
+{"parent":"minecraft:block/template_campfire","textures":{"fire":"minecraft:block/campfire_fire","lit_log":"minecraft:block/campfire_log_lit","marker":"minecraft:block/marker_campfire"}}
