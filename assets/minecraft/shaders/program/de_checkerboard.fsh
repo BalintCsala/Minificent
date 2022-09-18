@@ -2,7 +2,6 @@
 
 uniform sampler2D DiffuseSampler;
 uniform sampler2D DiffuseDepthSampler;
-uniform float OutSize;
 
 in vec2 texCoord;
 
